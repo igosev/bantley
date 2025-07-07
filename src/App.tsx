@@ -9,7 +9,7 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const observer = useRef<IntersectionObserver | null>(null);
-  const loadingRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef<HTMLDivElement>(null); 
 
   const loadImages = useCallback(async () => {
     try {
@@ -46,6 +46,28 @@ function App() {
 
   const getContainerSize = (height:any, width:any) => {
     return {width: Math.round((width / height) * 250)}
+  }
+
+  const setLoaded = (imageIndex: number) => {
+    setImages(prevState => {
+      return prevState.map((prevImage, prevIndex) => {
+        // let loaded = false
+        // if(prevIndex === imageIndex){
+        //   loaded = true
+          // return {
+          //   ...prevImage,
+          //   loaded: true
+          // }
+        // }
+
+      
+        return {
+          ...prevImage,
+          loaded: !prevImage.loaded ? prevIndex === imageIndex : true
+        }
+
+      })
+    })
   }
 
   useEffect(() => {
@@ -86,13 +108,18 @@ function App() {
       {error && <div className="error-message">{error}</div>}
 
       <div className="image-gallery">
-        {images.map((image) => (
+        {images.map((image, index) => (
           <div key={image.id} className="image-card" style={getContainerSize(image.height, image.width)}>
-            <img 
-              src={getImageUrl(image.id, Math.round((image.width / image.height) * 250), 250)} 
-              alt={`Photo by ${image.author}`}
-              loading="lazy"
-            />
+            <div className='image-container'>
+              <img 
+                src={getImageUrl(image.id, Math.round((image.width / image.height) * 250), 250)} 
+                alt={`Photo by ${image.author}`}
+                loading="lazy"
+                onLoad={(e) => setLoaded(index)}
+              />
+              {!image.loaded && <span className="image-loading">loading...</span>}
+              {/* {console.log(image.loaded)} */}
+            </div>
             <div className="image-author">
               <span>{image.author}</span>
             </div>

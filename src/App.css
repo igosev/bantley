@@ -40,6 +40,20 @@ h1 {
   height: 250px;
   display: block;
   width: auto;
+  z-index: 10;
+}
+
+.image-card .image-container{
+  height: fit-content;
+  background-color: #ccc;
+  position: relative;
+}
+
+.image-card .image-container .image-loading{
+  position: absolute;
+  /* z-index: -1; */
+  top: 50%;
+  left: 50%;
 }
 
 .image-author {
@@ -99,7 +113,7 @@ h1 {
   }
 
   .image-card img {
-    height: 180px;
+    /* height: 180px; */
     width: auto;
   }
 

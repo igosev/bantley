@@ -9,6 +9,7 @@ export interface ImageData {
   height: number;
   url: string;
   download_url: string;
+  loaded: boolean;
 }
 
 /**
