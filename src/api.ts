@@ -34,6 +34,7 @@ export const fetchImages = async (page: number = 1, limit: number = 25): Promise
     }
 
     const data: ImageData[] = await response.json();
+    // console.log(data)
     return { data };
   } catch (error) {
     console.error('Error fetching images:', error);

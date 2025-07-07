@@ -44,6 +44,10 @@ function App() {
     }
   }, [page]);
 
+  const getContainerSize = (height:any, width:any) => {
+    return {width: Math.round((width / height) * 250)}
+  }
+
   useEffect(() => {
     loadImages();
   }, [loadImages]);
@@ -83,7 +87,7 @@ function App() {
 
       <div className="image-gallery">
         {images.map((image) => (
-          <div key={image.id} className="image-card">
+          <div key={image.id} className="image-card" style={getContainerSize(image.height, image.width)}>
             <img 
               src={getImageUrl(image.id, Math.round((image.width / image.height) * 250), 250)} 
               alt={`Photo by ${image.author}`}
